@@ -1,13 +1,23 @@
-%p
-  %strong Title:
-  = @article.title
-%p
-  %strong Text:
-  = @article.text
-%h2 Comments
-= render @article.comments
-%h2 Add a comment:
-= render 'comments/form'
-= link_to 'Edit', edit_article_path(@article)
-|
-= link_to 'Back', articles_path
+.panel.panel-default
+  .panel-heading
+    %h2= @article.title
+  .panel-body
+    %p= @article.text
+    = link_to edit_article_path(@article), class: 'btn btn-default' do
+      %span.glyphicon.glyphicon-pencil
+      Edit
+    = link_to articles_path, class: 'btn btn-info' do
+      %span.glyphicon.glyphicon-chevron-left
+      Back
+.panel.panel-default
+  .panel-heading
+    %h3 Comments
+  .panel-body
+    %h4 Add a comment:
+    = render 'comments/form'
+  %table.table.table-condensed.table-striped
+    %tr
+      %th Commenter
+      %th Comment
+      %th.text-right Actions
+    = render @article.comments

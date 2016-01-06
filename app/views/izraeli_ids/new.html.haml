@@ -1,0 +1,7 @@
+%h1 New
+.panel.panel-default
+  .panel-body
+    = form_tag izraeli_ids_result_path do
+      .form-group
+        = text_field_tag :izraeli_id, '', class: 'form-control'
+      = button_tag :submit, class: 'btn btn-default'

@@ -1,0 +1,2 @@
+module IzraeliIdsHelper
+end

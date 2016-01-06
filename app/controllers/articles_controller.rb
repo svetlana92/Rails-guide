@@ -1,13 +1,15 @@
 class ArticlesController < ApplicationController
+  helper_method :sort_column, :sort_direction
 
-  http_basic_authenticate_with name: "dhh", password: "secret", except: [:index, :show]
-  
+  http_basic_authenticate_with name: "admin", password: "password", except: [:index, :show]
+
   def show
     @article = Article.find(params[:id])
   end
 
   def index
-   @articles = Article.all
+    @articles = Article.order(sort_column + ' ' + sort_direction)
+    @average_length = @articles.average_text_length
   end
 
   def new
@@ -16,6 +18,7 @@ class ArticlesController < ApplicationController
 
   def edit
     @article = Article.find(params[:id])
+    @article.text_length
   end
 
   def create
@@ -46,7 +49,16 @@ class ArticlesController < ApplicationController
   end
 
   private
+
     def article_params
       params.require(:article).permit(:title, :text)
+    end
+
+    def sort_column
+      Article.column_names.include?(params[:sort]) ? params[:sort] : "title"
+    end
+
+    def sort_direction
+      %w(asc desc).include?(params[:direction]) ? params[:direction] : "asc"
     end
 end

@@ -8,13 +8,11 @@
       %ul
         - @article.errors.full_messages.each do |msg|
           %li= msg
-  %p
+  .form-group
     = f.label :title
-    %br/
-    = f.text_field :title
-  %p
+    = f.text_field :title, class: 'form-control'
+  .form-group
     = f.label :text
-    %br/
-    = f.text_area :text
+    = f.text_area :text, class: 'form-control'
   %p
-    = f.submit
+    = f.button (params[:action] == 'new' ? 'New Article' : 'Update Article'), class: 'btn btn-default'

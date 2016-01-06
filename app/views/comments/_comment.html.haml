@@ -1,8 +1,7 @@
-%p
-  %strong Commenter:
-  = comment.commenter
-%p
-  %strong Comment:
-  = comment.body
-%p
-  = link_to 'Destroy Comment', [comment.article, comment], method: :delete, data: { confirm: 'Are you sure?' }
+%tr
+  %td= comment.commenter
+  %td= comment.body
+  %td.text-right
+    = link_to [comment.article, comment], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger' do
+      %span.glyphicon.glyphicon-remove
+      Delete

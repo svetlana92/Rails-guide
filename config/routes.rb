@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   resources :articles do
     resources :comments
   end
+
+  get 'izraeli_ids/new' => 'izraeli_ids#new'
+  post 'izraeli_ids/result' => 'izraeli_ids#result'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

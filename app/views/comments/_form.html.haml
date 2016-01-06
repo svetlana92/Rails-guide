@@ -1,11 +1,8 @@
-= form_for([@article, @article.comments.build]) do |f|
-  %p
+= form_for [@article, @article.comments.build] do |f|
+  .form-group
     = f.label :commenter
-    %br/
-    = f.text_field :commenter
-  %p
+    = f.text_field :commenter, class: 'form-control'
+  .form-group
     = f.label :body
-    %br/
-    = f.text_area :body
-  %p
-    = f.submit
+    = f.text_area :body, class: 'form-control'
+  = f.submit class: 'btn btn-success'

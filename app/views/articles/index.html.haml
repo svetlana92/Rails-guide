@@ -1,13 +1,27 @@
-%h1 Listing articles
-%table
-  %tr
-    %th Title
-    %th Text
-    %th{:colspan => "2"}
-  - @articles.each do |article|
+#articles-index
+  %h1.text-center Listing articles
+  %table#articles-table.table.table-condensed.table-striped
     %tr
-      %td= article.title
-      %td= article.text
-      %td= link_to 'Show', article_path(article), class: 'btn btn-default btn-sm'
-      %td= link_to 'Edit', edit_article_path(article)
-      %td= link_to 'Destroy', article_path(article), method: :delete, data: { confirm: 'Are you sure?' }
+      %th= sortable "title"
+      %th= sortable "text"
+      %th.text-right Actions
+    - @articles.each do |article|
+      %tr
+        %td= article.title
+        %td= article.text
+        %td.text-right
+          = link_to article_path(article), class: 'btn btn-info btn-xs' do
+            %span.glyphicon.glyphicon-ok
+            Show
+          = link_to edit_article_path(article), class: 'btn btn-default btn-xs' do
+            %span.glyphicon.glyphicon-pencil
+            Edit
+          = link_to article_path(article), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger' do
+            %span.glyphicon.glyphicon-remove
+            Delete
+  %p
+    Average Length:
+    = @average_length
+  = link_to new_article_path, class: 'btn btn-primary' do
+    %span.glyphicon.glyphicon-plus
+    New Article
