@@ -1,5 +1,9 @@
 #articles-index
   %h1.text-center Listing articles
+  = form_tag articles_path, method: 'get', class: 'form-inline' do
+    %p
+      = text_field_tag :search, params[:search], class: 'form-control'
+      = submit_tag "Search", name: nil, class: 'btn btn-default'
   %table#articles-table.table.table-condensed.table-striped
     %tr
       %th= sortable "title"
@@ -19,6 +23,7 @@
           = link_to article_path(article), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger' do
             %span.glyphicon.glyphicon-remove
             Delete
+  = will_paginate @articles, renderer: BootstrapPagination::Rails
   %p
     Average Length:
     = @average_length

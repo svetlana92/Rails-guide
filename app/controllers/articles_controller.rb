@@ -8,7 +8,9 @@ class ArticlesController < ApplicationController
   end
 
   def index
-    @articles = Article.order(sort_column + ' ' + sort_direction)
+    @articles = Article.search(params[:search]).
+                        order(sort_column + " " + sort_direction).
+                        paginate(page: params[:page])
     @average_length = @articles.average_text_length
   end
 

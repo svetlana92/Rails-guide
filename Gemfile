@@ -47,3 +47,5 @@ group :development do
 end
 
 gem "haml-rails", "~> 0.9"
+gem 'will_paginate', '~> 3.0.6'
+gem 'will_paginate-bootstrap'
