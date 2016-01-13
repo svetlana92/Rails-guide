@@ -1,32 +1,47 @@
-#articles-index
+#articles-index.container-fluid
   %h1.text-center Listing articles
   = form_tag articles_path, method: 'get', class: 'form-inline' do
     %p
       = text_field_tag :search, params[:search], class: 'form-control'
       = submit_tag "Search", name: nil, class: 'btn btn-default'
-  %table#articles-table.table.table-condensed.table-striped
-    %tr
-      %th= sortable "title"
-      %th= sortable "text"
-      %th.text-right Actions
-    - @articles.each do |article|
-      %tr
-        %td= article.title
-        %td= article.text
-        %td.text-right
-          = link_to article_path(article), class: 'btn btn-info btn-xs' do
-            %span.glyphicon.glyphicon-ok
-            Show
-          = link_to edit_article_path(article), class: 'btn btn-default btn-xs' do
-            %span.glyphicon.glyphicon-pencil
-            Edit
-          = link_to article_path(article), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger' do
-            %span.glyphicon.glyphicon-remove
-            Delete
-  = will_paginate @articles, renderer: BootstrapPagination::Rails
-  %p
-    Average Length:
-    = @average_length
-  = link_to new_article_path, class: 'btn btn-primary' do
-    %span.glyphicon.glyphicon-plus
-    New Article
+  .row
+    .col-md-8
+      %table#articles-table.table.table-condensed.table-striped
+        %tr
+          %th= sortable "title"
+          %th= sortable "author"
+          %th= sortable "created_at", "Date"
+        - @articles.each do |article|
+          %tr
+            %td
+              = link_to article.title, article
+            %td= article.author
+            %td= article.created_at.strftime("%d/%m/%Y")
+      = will_paginate @articles, renderer: BootstrapPagination::Rails
+      %p
+        Average Length:
+        = @average_length
+      = link_to new_article_path, class: 'btn btn-primary' do
+        %span.glyphicon.glyphicon-plus
+        New Article
+    .col-md-4.hidden-xs.hidden-sm
+      .affix{ "data-spy": "affix", "data-offset-top": "195" }
+        #accordion.panel-group{ "aria-multiselectable" => "true", role: "tablist" }
+          - @last_five_articles.each_with_index do |article, index|
+            .panel.panel-default
+              .panel-heading{ id: "heading#{index}" ,role: "tab" }
+                %h4.panel-title
+                  %a{ "aria-controls" => "collapse#{index}",
+                      "aria-expanded" => "true",
+                      "data-parent" => "#accordion",
+                      "data-toggle" => "collapse",
+                      href: "#collapse#{index}",
+                      role: "button" }
+                    = article.title
+              %div{ id: "collapse#{index}",
+                    class: "panel-collapse collapse #{ index==0 ? 'in' : '' }",
+                    "aria-labelledby" => "heading#{index}",
+                    role: "tabpanel" }
+                .panel-body
+                  = article.text.truncate(400, separator: ' ')
+                  %p= link_to 'Read more', article, class: 'btn btn-primary btn-xs'

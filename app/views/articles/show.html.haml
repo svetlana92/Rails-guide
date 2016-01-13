@@ -2,7 +2,8 @@
   .panel-heading
     %h2= @article.title
   .panel-body
-    %p= @article.text
+    .well= simple_format @article.text
+    %h3.text-right= @article.author
     = link_to edit_article_path(@article), class: 'btn btn-default' do
       %span.glyphicon.glyphicon-pencil
       Edit
@@ -16,8 +17,10 @@
     %h4 Add a comment:
     = render 'comments/form'
   %table.table.table-condensed.table-striped
-    %tr
-      %th Commenter
-      %th Comment
-      %th.text-right Actions
-    = render @article.comments
+    %thead
+      %tr
+        %th Commenter
+        %th Comment
+        %th.text-right Actions
+    %tbody
+      = render @article.comments

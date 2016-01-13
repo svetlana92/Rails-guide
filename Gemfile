@@ -3,8 +3,8 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+# Use mysql2 as the database for Active Record
+gem 'mysql2', '~> 0.3.18'
 # Use SASS for stylesheets
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.3.5'
@@ -47,5 +47,8 @@ group :development do
 end
 
 gem "haml-rails", "~> 0.9"
+
 gem 'will_paginate', '~> 3.0.6'
 gem 'will_paginate-bootstrap'
+
+gem 'faker'

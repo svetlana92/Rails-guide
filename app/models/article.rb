@@ -2,12 +2,12 @@ class Article < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   validates :title, presence: true, length: { minimum: 5 }
 
-  self.per_page = 5
+  # self.per_page
 
   def self.average_text_length
     # average_text_length of collection of articles
     sum_length = where(nil).reduce(0) { |sum,article| sum += article.text_length }
-    sum_length / where(nil).size
+    sum_length / where(nil).count
   end
 
   def text_length
@@ -17,7 +17,7 @@ class Article < ActiveRecord::Base
 
   def self.search(search)
     if search
-      where('title LIKE ?', "%#{search}%")
+      where('title LIKE ? OR author LIKE ?', "%#{search}%", "%#{search}%")
     else
       where(nil)
     end

@@ -12,7 +12,10 @@
     = f.label :title
     = f.text_field :title, class: 'form-control'
   .form-group
+    = f.label :author
+    = f.text_field :author, class: 'form-control'
+  .form-group
     = f.label :text
-    = f.text_area :text, class: 'form-control'
+    = f.text_area :text, rows: 10, class: 'form-control'
   %p
     = f.button (params[:action] == 'new' ? 'New Article' : 'Update Article'), class: 'btn btn-default'
