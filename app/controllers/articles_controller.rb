@@ -54,7 +54,7 @@ class ArticlesController < ApplicationController
   private
 
     def article_params
-      params.require(:article).permit(:title, :author, :text)
+      params.require(:article).permit(:title, :author, :text, tag_ids: [])
     end
 
     def sort_column

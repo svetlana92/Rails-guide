@@ -1,12 +1,16 @@
 class Article < ActiveRecord::Base
   has_many :comments, dependent: :destroy
-  validates :title, presence: true, length: { minimum: 5 }
+  has_many :taggings
+  has_many :tags, through: :taggings
 
-  # self.per_page
+  validates :title, presence: true, length: { minimum: 5 }
+  validates :tags,
+            presence: true,
+            length: { maximum: 5, message: 'must be less than 5' }
 
   def self.average_text_length
     # average_text_length of collection of articles
-    sum_length = where(nil).reduce(0) { |sum,article| sum += article.text_length }
+    sum_length = where(nil).reduce(0) { |a,e| a += e.text_length }
     sum_length / where(nil).count
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160112111319) do
+ActiveRecord::Schema.define(version: 20160218140854) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -31,4 +31,22 @@ ActiveRecord::Schema.define(version: 20160112111319) do
 
   add_index "comments", ["article_id"], name: "index_comments_on_article_id", using: :btree
 
+  create_table "taggings", force: :cascade do |t|
+    t.integer  "tag_id",     limit: 4
+    t.integer  "article_id", limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "taggings", ["article_id"], name: "index_taggings_on_article_id", using: :btree
+  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_foreign_key "taggings", "articles"
+  add_foreign_key "taggings", "tags"
 end

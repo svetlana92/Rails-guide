@@ -1,6 +1,11 @@
 .panel.panel-default
   .panel-heading
-    %h2= @article.title
+    .row
+      .col-sm-6
+        %h2= @article.title
+      .col-sm-6
+        %h3.text-right
+          = render @article.tags
   .panel-body
     .well= simple_format @article.text
     %h3.text-right= @article.author
