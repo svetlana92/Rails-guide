@@ -5,7 +5,6 @@ class Article < ActiveRecord::Base
 
   validates :title, presence: true, length: { minimum: 5 }
   validates :tags,
-            presence: true,
             length: { maximum: 5, message: 'must be less than 5' }
 
   def self.average_text_length

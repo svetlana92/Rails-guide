@@ -1,4 +1,5 @@
 class ArticlesController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   helper_method :sort_column, :sort_direction
 
   # http_basic_authenticate_with name: "admin", password: "password", except: [:index, :show]

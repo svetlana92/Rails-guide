@@ -25,36 +25,18 @@
 
           #bs-example-navbar-collapse-1.collapse.navbar-collapse
             %ul.nav.navbar-nav
-              %li
-                %a{ href: "http://localhost:3000/articles" } My Blog
-              %li
-                %a{ href: "http://localhost:3000/izraeli_ids/new" } Israeli ID
-              %li.dropdown
-                %a.dropdown-toggle{ "aria-expanded" => "false",
-                                    "aria-haspopup" => "true",
-                                    "data-toggle" => "dropdown",
-                                    href: "#",
-                                    role: "button" }
-                  Dropdown
-                  %span.caret
-                %ul.dropdown-menu
-                  %li
-                    %a{ href: "#" } Link 1
-                  %li
-                    %a{ href: "#" } Link 2
-                  %li
-                    %a{ href: "#" } Link 3
-                  %li.divider{ role: "separator" }
-                  %li
-                    %a{ href: "#" } Link 4
-                  %li.divider{ role: "separator" }
-                  %li
-                    %a{ href: "#" } Link 5
-            -# %form.navbar-form.navbar-cent{ role: "search" }
-            -#   .form-group
-            -#     %input.form-control{ placeholder: "Search", type: "text" }/
-            -#   %button.btn.btn-default{ type: "submit" } Submit
+              %li= link_to 'My Blog', articles_path
+              %li= link_to 'Users', users_path
+              %li= link_to 'Israeli ID', izraeli_ids_new_path
+            %ul.nav.navbar-nav.navbar-right
+              - if user_signed_in?
+                %li= link_to 'My profile', current_user
+                %li= link_to 'Sign out', destroy_user_session_path, method: 'delete'
+              - else
+                %li= link_to 'Sign in', new_user_session_path
+                %li= link_to 'Sign up', new_user_registration_path
       %section
-        -# .row
-        -#   .col-sm-8.col-sm-offset-2
+        %p.notice= notice
+        %p.alert= alert
+
         = yield
